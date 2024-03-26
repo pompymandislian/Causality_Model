@@ -18,6 +18,7 @@ Estimated effect:-1.157942047466804
 New effect:-1.1612387078457596
 p value:0.86
 ```
+From the results obtained, it seems that we do not have strong evidence to support a causal relationship. Therefore, decisions should be made based on knowledge and understanding.
 
 What are the benefits?
 
