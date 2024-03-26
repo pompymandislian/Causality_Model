@@ -7,28 +7,28 @@ import matplotlib.pyplot as plt
 import dowhy
 from dowhy import CausalModel
 
-# Baca data dan lakukan pembersihan data
+# Read data and perform data cleaning
 df = pd.read_csv('/home/pompy/causality/Bank.csv')
 
-# Tentukan variabel target dan fitur-fitur
+# Specify the target variable and features
 y = 'credit_score'  
 X = df.drop(columns=[y])
 
-# Bangun model Bayesian Network
+# Build Bayesian Network model
 model = BayesianNetwork()
 
-# Tambahkan simpul ke model
+# Add nodes to the model
 model.add_nodes_from([y] + list(X.columns))
 
-# Tambahkan hubungan (edges) antara fitur-fitur dan variabel target
+# Add relationships (edges) between features and the target variable
 for feature in X.columns:
     model.add_edge(feature, y)
 
-# Tampilkan simpul dan hubungan
+# Display nodes and relationships
 print("Nodes:", model.nodes())
 print("Edges:", model.edges())
 
-# Visualisasikan Bayesian Network
+# Visualize Bayesian Network
 G = nx.DiGraph()
 G.add_nodes_from(model.nodes())
 G.add_edges_from(model.edges())
@@ -45,15 +45,15 @@ model_counter = CausalModel(
     graph=None  
 )
 
-# Identification counterfactual
+# Identification of counterfactual
 identified_estimand = model_counter.identify_effect()
 
-# Estimation causal effect
+# Estimation of causal effect
 estimate = model_counter.estimate_effect(identified_estimand,
                                          method_name="backdoor.linear_regression")
 print(estimate)
 
-# Refute estimasi
+# Refute estimation
 refute_results = model_counter.refute_estimate(identified_estimand, estimate,
                                                method_name="random_common_cause")
 print(refute_results)
